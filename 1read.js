@@ -1,7 +1,7 @@
 // TODO
-// 1. functions and modularize
+// 1. functions and modularize (to loop over all zones in Manhattan and Brooklyn)
 // 2. mongo query
-// 3. 
+// 3. promises instead of settimeout
 
 var request = require('request');
 var fs = require("fs");

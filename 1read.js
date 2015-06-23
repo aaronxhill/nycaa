@@ -1,7 +1,9 @@
 // TODO
 // 1. functions and modularize (to loop over all zones in Manhattan and Brooklyn)
-// 2. mongo query
+// 2. mongo query:
+// http://docs.mongodb.org/manual/reference/operator/aggregation/group/
 // 3. promises instead of settimeout
+// 4. Google Maps API
 
 var request = require('request');
 var fs = require("fs");
@@ -68,7 +70,13 @@ var printIt = function () {
     console.log(meetingsArray.length);
 }
 
-setTimeout(printIt, 1000);
+// setTimeout(printIt, 1000);
+
+var saveIt = function () {
+    fs.writeFileSync('/home/ubuntu/workspace/data/normalized.txt', JSON.stringify(meetingsArray, null, '\t'));
+}
+
+setTimeout(saveIt, 1000);
 
 var mongoIt = function() {
 

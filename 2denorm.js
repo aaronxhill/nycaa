@@ -1,9 +1,14 @@
+// DENORM AND INSERT
+
 var fs = require("fs");
 var request = require("request");
 var async = require("async");
 
+function denormAndInsert (zone) {
+    var fileToParse = '/home/ubuntu/workspace/data/normalized' + zone + '.txt';
+
 var toParse;
-toParse = fs.readFileSync('/home/ubuntu/workspace/data/normalized.txt').toString();
+toParse = fs.readFileSync(fileToParse).toString();
 
 var meets = JSON.parse(toParse);
 
@@ -79,7 +84,7 @@ var googleGeoCode = function(arr) {
         setTimeout(callb, 200)
     }, function(err) {
         if (err) throw err;
-        mongoIt(arr, 'testdb', 'draftMeetsDenorm1');
+        mongoIt(arr, 'testdb', 'meetsFinal');
     })
 }
 
@@ -115,4 +120,16 @@ var mongoIt = function(arr, dbName, collName) {
 
 };
 
-// db.draftMeetsDenorm1.aggregate([{$group : { _id : "$meetingName", meetings : {$push : "$$ROOT"} }}]).pretty()
+} //function denormAndInsert
+
+// NOTE: NEED TO USE RECURSION TO CALL THESE SEQUENTIALLY
+// denormAndInsert('01')
+// denormAndInsert('02')
+// denormAndInsert('03')
+// denormAndInsert('04')
+// denormAndInsert('05')
+// denormAndInsert('06')
+// denormAndInsert('07')
+// denormAndInsert('08')
+// denormAndInsert('09')
+// denormAndInsert('10')

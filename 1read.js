@@ -1,31 +1,24 @@
-// TODO
-// 1. functions and modularize (to loop over all zones in Manhattan and Brooklyn)
-// 2. mongo query:
-// http://docs.mongodb.org/manual/reference/operator/aggregation/group/
-// 3. promises instead of settimeout
-// 4. Google Maps API
+// PARSE
 
-var request = require('request');
 var fs = require("fs");
 var cheerio = require('cheerio');
-
-// request('http://www.nyintergroup.org/meetinglist/meetinglist.cfm?zone=02&borough=M', function(error, response, body) {
-//     if (!error && response.statusCode == 200) {
-//         fs.writeFileSync('/home/ubuntu/workspace/data/m02.txt', body);
-//     }
-// });
 
 function getMeetingHourStart (meetTime) {
     var theHour; 
     if (meetTime.substr(-2) == "PM") {
       theHour = meetTime.substr(0, meetTime.indexOf(':')) * 1 + 12;
     }
+    else if (meetTime.substr(-2) == "AM" && meetTime.substr(0, meetTime.indexOf(':')) * 1 === 12) {theHour = 0}
     else {theHour = meetTime.substr(0, meetTime.indexOf(':')) * 1}
 return theHour;
 }
 
+function parseIt (zone) {
+
+var parseFile = '/home/ubuntu/workspace/data/m' + zone + '.txt';
+
 var toParse;
-toParse = fs.readFileSync('/home/ubuntu/workspace/data/m02.txt').toString();
+toParse = fs.readFileSync(parseFile).toString();
 
 var $ = cheerio.load(toParse);
 
@@ -86,33 +79,21 @@ var printIt = function () {
 // setTimeout(printIt, 1000);
 
 var saveIt = function () {
-    fs.writeFileSync('/home/ubuntu/workspace/data/normalized.txt', JSON.stringify(meetingsArray, null, '\t'));
+    var saveFileName = '/home/ubuntu/workspace/data/normalized' + zone + '.txt';
+    fs.writeFileSync(saveFileName, JSON.stringify(meetingsArray, null, '\t'));
 }
 
 setTimeout(saveIt, 1000);
 
-var mongoIt = function() {
+}
 
-    var url = 'mongodb://' + process.env.IP + ':27017/testdb';
-    var MongoClient = require('mongodb').MongoClient;
-
-    MongoClient.connect(url, function(err, db) {
-        if (err) {
-            return console.dir(err);
-        }
-
-        var collection = db.collection('draftMeets1');
-
-        for (var i = 0; i < meetingsArray.length; i++) {
-            // WRITE meetingsArray[i] TO MONGO
-            collection.insert(meetingsArray[i]);
-
-        }
-
-        db.close();
-
-    }); //MongoClient.connect
-
-};
-
-// setTimeout(mongoIt, 1000);
+parseIt('01')
+parseIt('02')
+parseIt('03')
+parseIt('04')
+parseIt('05')
+parseIt('06')
+parseIt('07')
+parseIt('08')
+parseIt('09')
+parseIt('10')

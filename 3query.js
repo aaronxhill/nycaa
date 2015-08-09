@@ -1,6 +1,16 @@
 
 process.env.TZ = 'America/New_York';
 var hourNow = new Date().getHours() - 2;
+var dayNow = new Date().getDay();
+var dayQuery;
+
+if (dayNow === 0) {dayQuery = "Sundays"} 
+else if (dayNow === 1) {dayQuery = "Mondays"} 
+else if (dayNow === 2) {dayQuery = "Tuesdays"} 
+else if (dayNow === 3) {dayQuery = "Wednesdays"} 
+else if (dayNow === 4) {dayQuery = "Thursdays"} 
+else if (dayNow === 5) {dayQuery = "Fridays"} 
+else if (dayNow === 6) {dayQuery = "Saturdays"} 
 
 // Connection URL
 var url = 'mongodb://' + process.env.IP + ':27017/testdb';
@@ -13,7 +23,7 @@ MongoClient.connect(url, function(err, db) {
         return console.dir(err);
     }
 
-    var collection = db.collection('draftMeetsDenorm1');
+    var collection = db.collection('meetsFinal');
 
     collection.aggregate(
         
@@ -22,7 +32,7 @@ MongoClient.connect(url, function(err, db) {
         [{
     $match: {
         $and : [
-        {meetingDay: "Sundays" },
+        {meetingDay: dayQuery },
         {meetingStartTimeHour: { $gt : hourNow }} //replace 0 with hourNow
         ]
     }

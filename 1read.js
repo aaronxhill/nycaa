@@ -15,6 +15,15 @@ var cheerio = require('cheerio');
 //     }
 // });
 
+function getMeetingHourStart (meetTime) {
+    var theHour; 
+    if (meetTime.substr(-2) == "PM") {
+      theHour = meetTime.substr(0, meetTime.indexOf(':')) * 1 + 12;
+    }
+    else {theHour = meetTime.substr(0, meetTime.indexOf(':')) * 1}
+return theHour;
+}
+
 var toParse;
 toParse = fs.readFileSync('/home/ubuntu/workspace/data/m02.txt').toString();
 
@@ -47,6 +56,7 @@ var parseMeetings = function(x) {
         x[i] = x[i].trim();
         newX[i].day = x[i].substring(x[i].indexOf('<b>') + 3, x[i].indexOf(' From'));
         newX[i].startTime = x[i].substring(x[i].indexOf('From</b>  ') + 10, x[i].indexOf(' <b>to</b> '));
+        newX[i].startTimeHour = getMeetingHourStart(newX[i].startTime)
         newX[i].endTime = x[i].substring(x[i].indexOf(' <b>to</b> ') + 11, x[i].indexOf(' <br><b>'));
         newX[i].meetingType = x[i].substring(x[i].indexOf('Meeting Type</b> ') + 17, x[i].indexOf(' ='));
         if (x[i].indexOf('Special Interest</b> ') != -1) {

@@ -41,8 +41,7 @@ function initialize() {
   setMarkers(map, meetings);
 }
 
-var meetings = [{"_id":{"meetingName":"NEW GROUP - New Group","meetingHouse":"St. John's Lutheran Church","meetingAddress1":"83 Christopher Street (Red Door, Left of Church),","meetingAddress2":"(West of 7th Avenue, Enter Left, Red Door, Ring Buzzer) NY 10014","latLong":[40.7336246,-74.00377379999999],"zone":2,"borough":"Manhattan","meetingWheelchair":""},"days":["Sundays"],"startTimes":["12:30 PM"]},{"_id":{"meetingName":"MIDNITE - ","meetingHouse":"","meetingAddress1":"220 West Houston Street, 2nd Floor,","meetingAddress2":"(Betw 6th Avenue &amp; Varick Street) 10014","latLong":[40.72871,-74.004576],"zone":2,"borough":"Manhattan","meetingWheelchair":""},"days":["Sundays","Sundays","Sundays","Sundays","Sundays","Sundays","Sundays"],"startTimes":["12:00 AM","2:00 AM","12:30 PM","5:15 PM","6:30 PM","8:00 PM","10:00 PM"]},{"_id":{"meetingName":"GRUPO CENTRAL - Grupo Central","meetingHouse":"St. Augustine's Church","meetingAddress1":"292 Henry Street, Basement,","meetingAddress2":"(A la isquierda de la iglesia) NY 10002","latLong":[40.71371430000001,-73.983033],"zone":2,"borough":"Manhattan","meetingWheelchair":"Wheelchair access"},"days":["Sundays"],"startTimes":["3:00 PM"]},{"_id":{"meetingName":"ARTISTS IN RECOVERY (A.R.T.) - ","meetingHouse":"Seventh Day Adventist Church","meetingAddress1":"232 W. 11th Street,","meetingAddress2":"(between Waverly and West 4th Streets) 10014","latLong":[40.736056,-74.002725],"zone":2,"borough":"Manhattan","meetingWheelchair":""},"days":["Sundays"],"startTimes":["6:30 PM"]},{"_id":{"meetingName":"SPIRITUAL WORKSHOP - Spiritual Workshop","meetingHouse":"The Bronfman Cernter @ NYU","meetingAddress1":"7 East 10th Strert,","meetingAddress2":"(@ Houston Street) NY 10003","latLong":[40.7332774,-73.99463109999999],"zone":2,"borough":"Manhattan","meetingWheelchair":""},"days":["Sundays"],"startTimes":["11:00 AM"]},{"_id":{"meetingName":"ROOM FOR IMPROVEMENT     (:II) - ","meetingHouse":"Chinatown YMCA","meetingAddress1":"273 Bowery Street, \r\n\t\t\t\t\t\t10012","meetingAddress2":"","latLong":[40.7237496,-73.992395],"zone":2,"borough":"Manhattan","meetingWheelchair":"Wheelchair access"},"days":["Sundays"],"startTimes":["7:30 AM"]},{"_id":{"meetingName":"BAGELS AND BIG BOOK - ","meetingHouse":"","meetingAddress1":"220 West Houston Street, 2nd Floor,","meetingAddress2":"(Betw. 6th Avenue &amp; Varick Street) 10014","latLong":[40.72871,-74.004576],"zone":2,"borough":"Manhattan","meetingWheelchair":""},"days":["Sundays"],"startTimes":["10:30 AM"]},{"_id":{"meetingName":"RED DOOR - Red Door","meetingHouse":"St. John's Episcopal Church","meetingAddress1":"224 Waverly Place, 1st floor event room.,","meetingAddress2":"(@ 11th Street &amp; 7th Avenue South) NY 10014","latLong":[40.7360418,-74.0021409],"zone":2,"borough":"Manhattan","meetingWheelchair":""},"days":["Sundays","Sundays"],"startTimes":["7:00 PM","8:30 PM"]},{"_id":{"meetingName":"PERRY STREET WORKSHOP - Perry Street Workshop     (:I)","meetingHouse":"","meetingAddress1":"50 Perry Street, Ground Floor,","meetingAddress2":"(Betw. 7th Avenue South &amp; West 4th Street) NY 10014","latLong":[40.7355145,-74.0031001],"zone":2,"borough":"Manhattan","meetingWheelchair":""},"days":["Sundays","Sundays","Sundays","Sundays","Sundays","Sundays","Sundays","Sundays"],"startTimes":["10:30 PM","7:30 AM","9:00 AM","11:00 AM","1:00 PM","3:00 PM","6:00 PM","8:30 PM"]}];
-
+var meetings = [{"_id":{"loca":[40.7355145,-74.0031001]},"meets":[{"meetingName":"PERRY STREET WORKSHOP - Perry Street Workshop     (:I)","meetingHouse":"","meetingAddress1":"50 Perry Street, Ground Floor,","meetingAddress2":"(Betw. 7th Avenue South &amp; West 4th Street) NY 10014","borough":"Manhattan","meetingDetails":"No 8:30 or 10:15 1st Wed of month due to Bus. meeting Wed.10:15pm=No BB 1st Wed.","meetingWheelchair":""}],"deets":[{"days":["Sundays","Sundays","Sundays","Sundays","Sundays","Sundays"],"startTimes":["10:30 PM","11:00 AM","1:00 PM","3:00 PM","6:00 PM","8:30 PM"],"meetingType":["C","C","C","C","C","C"],"specialInterest":["","","Children Welcome","","",""]}]},{"_id":{"loca":[40.7360418,-74.0021409]},"meets":[{"meetingName":"RED DOOR - Red Door","meetingHouse":"St. John's Episcopal Church","meetingAddress1":"224 Waverly Place, 1st floor event room.,","meetingAddress2":"(@ 11th Street &amp; 7th Avenue South) NY 10014","borough":"Manhattan","meetingDetails":"Fri.7:00pm=Promises Meeting All meetings are Gay & Lesbian focused.  All are welcome.","meetingWheelchair":""}],"deets":[{"days":["Sundays","Sundays"],"startTimes":["7:00 PM","8:30 PM"],"meetingType":["S","OD"],"specialInterest":["Gay, Lesbian and Bisexual","Gay, Lesbian and Bisexual"]}]},{"_id":{"loca":[40.736056,-74.002725]},"meets":[{"meetingName":"ARTISTS IN RECOVERY (A.R.T.) - ","meetingHouse":"Seventh Day Adventist Church","meetingAddress1":"232 W. 11th Street,","meetingAddress2":"(between Waverly and West 4th Streets) 10014","borough":"Manhattan","meetingDetails":"","meetingWheelchair":""}],"deets":[{"days":["Sundays"],"startTimes":["6:30 PM"],"meetingType":["B"],"specialInterest":[""]}]},{"_id":{"loca":[40.7332774,-73.99463109999999]},"meets":[{"meetingName":"SPIRITUAL WORKSHOP - Spiritual Workshop","meetingHouse":"The Bronfman Cernter @ NYU","meetingAddress1":"7 East 10th Strert,","meetingAddress2":"(@ Houston Street) NY 10003","borough":"Manhattan","meetingDetails":"Lower level","meetingWheelchair":""}],"deets":[{"days":["Sundays"],"startTimes":["11:00 AM"],"meetingType":["C"],"specialInterest":["Eleventh Step"]}]},{"_id":{"loca":[40.7336246,-74.00377379999999]},"meets":[{"meetingName":"NEW GROUP - New Group","meetingHouse":"St. John's Lutheran Church","meetingAddress1":"83 Christopher Street (Red Door, Left of Church),","meetingAddress2":"(West of 7th Avenue, Enter Left, Red Door, Ring Buzzer) NY 10014","borough":"Manhattan","meetingDetails":"Gay & Lesbian focus.  All are welcome.","meetingWheelchair":""}],"deets":[{"days":["Sundays"],"startTimes":["12:30 PM"],"meetingType":["O"],"specialInterest":["Gay, Lesbian and Bisexual"]}]},{"_id":{"loca":[40.71371430000001,-73.983033]},"meets":[{"meetingName":"GRUPO CENTRAL - Grupo Central","meetingHouse":"St. Augustine's Church","meetingAddress1":"292 Henry Street, Basement,","meetingAddress2":"(A la isquierda de la iglesia) NY 10002","borough":"Manhattan","meetingDetails":"Spanish speaking meetings.","meetingWheelchair":"Wheelchair access"}],"deets":[{"days":["Sundays"],"startTimes":["3:00 PM"],"meetingType":["O"],"specialInterest":[""]}]},{"_id":{"loca":[40.72871,-74.004576]},"meets":[{"meetingName":"BAGELS AND BIG BOOK - ","meetingHouse":"","meetingAddress1":"220 West Houston Street, 2nd Floor,","meetingAddress2":"(Betw. 6th Avenue &amp; Varick Street) 10014","borough":"Manhattan","meetingDetails":"NOTE: Meeting only meets on the 1st & 3rd Sunday of each month *Big Book Workshop, Meeting ends at Noon.","meetingWheelchair":""},{"meetingName":"MIDNITE - ","meetingHouse":"","meetingAddress1":"220 West Houston Street, 2nd Floor,","meetingAddress2":"(Betw 6th Avenue &amp; Varick Street) 10014","borough":"Manhattan","meetingDetails":"Sun.12:30=Meditation, 2am Meetings=Pitch meeting with candlelight. Mon.8pm=Topic, Tues.10pm=T last Tues., Thu.10pm=Problems in Sobriety Sun.8pm=Bus.Meeting last Sun.,Sat.10pm=Anniv.Last","meetingWheelchair":""}],"deets":[{"days":["Sundays"],"startTimes":["10:30 AM"],"meetingType":["OD"],"specialInterest":[""]},{"days":["Sundays","Sundays","Sundays","Sundays","Sundays","Sundays"],"startTimes":["12:00 AM","12:30 PM","5:15 PM","6:30 PM","8:00 PM","10:00 PM"],"meetingType":["S","C","S","C","BB","C"],"specialInterest":["","Meditation","","","",""]}]}];
 
 
 
@@ -51,27 +50,30 @@ function makeContent (cont) {
   // var m = cont;
   var contentHolder = '<div id="content">'+
       '<div id="siteNotice">'+
-      '</div>'+
-      '<h1 id="firstHeading" class="firstHeading">';
-  var mName = cont._id.meetingName.substr(0, cont._id.meetingName.indexOf("-") - 1); 
+      '</div>';
+
+  for (var i=0; i < cont.meets.length; i++) {
+     contentHolder = contentHolder + '<h1 id="firstHeading" class="firstHeading">';
+  var mName = cont.meets[i].meetingName.substr(0, cont.meets[i].meetingName.indexOf("-") - 1); 
 
   contentHolder = contentHolder + mName + '</h1>';
-  contentHolder = contentHolder + '<p>' + cont._id.meetingHouse + '<br>';
-  contentHolder = contentHolder + cont._id.meetingAddress1.substr(0, cont._id.meetingAddress1.indexOf(',')) + '<br>';
-  contentHolder = contentHolder + cont._id.meetingAddress2 + '</p>';
+  if (cont.meets[i].meetingHouse.length > 0) {
+  contentHolder = contentHolder + '<p>' + cont.meets[i].meetingHouse + '<br>';}
+  contentHolder = contentHolder + cont.meets[i].meetingAddress1.substr(0, cont.meets[i].meetingAddress1.indexOf(',')) + '<br>';
+  contentHolder = contentHolder + cont.meets[i].meetingAddress2 + '</p>';
   // contentHolder = contentHolder +
   // contentHolder = contentHolder +
 
-  contentHolder = contentHolder + '<p><b>upcoming meetings today: </b>';
-  for (var i=0; i < cont.startTimes.length; i++) {
-
-  //   if (getMeetingHourStart(cont.startTimes[i]) > hourNow - 1) {
-    contentHolder = contentHolder + cont.startTimes[i];
+  contentHolder = contentHolder + '<p><b>upcoming meetings today: </b><br>';
+// FIX: 
+  for (var j=0; j < cont.deets[i].startTimes.length; j++) {
+    contentHolder = contentHolder + cont.deets[i].startTimes[j];
       contentHolder = contentHolder + ', ';
-  // }
 }
   contentHolder = contentHolder.substr(0, contentHolder.length - 2)
   contentHolder = contentHolder + '</p>';
+// END FIX
+}
   return contentHolder;
 
 }
@@ -87,7 +89,7 @@ function setMarkers(map, locations) {
 
   for (var i = 0; i < locations.length; i++) {
     var meeting = locations[i];
-    var myLatLng = new google.maps.LatLng(meeting._id.latLong[0], meeting._id.latLong[1]);
+    var myLatLng = new google.maps.LatLng(meeting._id.loca[0], meeting._id.loca[1]);
     
     var contentWindow = makeContent(meetings[i]);
     
@@ -95,8 +97,9 @@ function setMarkers(map, locations) {
     var marker = new google.maps.Marker({
         position: myLatLng,
         map: map,
+        title: "Click for meeting info",
         // title: meeting._id.meetingName,
-        title: meeting._id.meetingName.substr(0, meeting._id.meetingName.indexOf("-") - 1),
+        // title: meeting._id.meetingName.substr(0, meeting._id.meetingName.indexOf("-") - 1),
         content: contentWindow,
     });
   

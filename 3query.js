@@ -1,6 +1,6 @@
 
 process.env.TZ = 'America/New_York';
-var hourNow = new Date().getHours() - 1;
+var hourNow = new Date().getHours() - 2;
 
 // Connection URL
 var url = 'mongodb://' + process.env.IP + ':27017/testdb';
@@ -36,7 +36,8 @@ MongoClient.connect(url, function(err, db) {
             latLong: "$latLong",
             zone: "$zone",
             borough: "$borough",
-            meetingWheelchair: "$meetingWheelchair"
+            meetingWheelchair: "$meetingWheelchair",
+            meetingDetails: "$meetingDetails"
         },
         days: {
             $push: "$meetingDay"
@@ -61,7 +62,10 @@ MongoClient.connect(url, function(err, db) {
          meetingHouse: "$_id.meetingHouse",
          meetingAddress1: "$_id.meetingAddress1",
          meetingAddress2: "$_id.meetingAddress2",
-         borough: "$_id.borough"}},
+         borough: "$_id.borough",
+         meetingDetails: "$_id.meetingDetails",
+         meetingWheelchair: "$_id.meetingWheelchair"
+     }},
     deets: {$addToSet: {days: "$days", startTimes: "$startTimes", meetingType: "$meetingType", specialInterest: "$specialInterest"}}
      }
      

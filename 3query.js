@@ -1,3 +1,4 @@
+// QUERY AND SERVE
 
 process.env.TZ = 'America/New_York';
 var hourNow = new Date().getHours() - 2;

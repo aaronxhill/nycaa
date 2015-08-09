@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+  <html>
+  <head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <title>AA Meetings in Manhattan</title>
+    <style>
+      html, body, #map-canvas {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+
+      #firstHeading {
+        font-size: 100%; 
+      }
+
+    </style>
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true"></script>
+    <script>
+
+function initialize() {
+  var mapOptions = {
+    zoom: 15,
+    center: new google.maps.LatLng(40.735688, -73.990399)
+  }
+  var map = new google.maps.Map(document.getElementById('map-canvas'),
+                                mapOptions);
+                                
+  setMarkers(map, meetings);
+}
+
+// var meetings  ;
+
+
+
+function makeContent (cont) {
+
+  // var m = cont;
+  var contentHolder = '<div id="content">'+
+      '<div id="siteNotice">'+
+      '</div>';
+
+  for (var i=0; i < cont.meets.length; i++) {
+     contentHolder = contentHolder + '<h1 id="firstHeading" class="firstHeading">';
+  var mName = cont.meets[i].meetingName.substr(0, cont.meets[i].meetingName.indexOf("-") - 1); 
+
+  contentHolder = contentHolder + mName + '</h1>';
+  if (cont.meets[i].meetingHouse.length > 0) {
+  contentHolder = contentHolder + '<p>' + cont.meets[i].meetingHouse + '<br>';}
+  contentHolder = contentHolder + cont.meets[i].meetingAddress1.substr(0, cont.meets[i].meetingAddress1.indexOf(',')) + '<br>';
+  contentHolder = contentHolder + cont.meets[i].meetingAddress2 + '</p>';
+  // contentHolder = contentHolder +
+  // contentHolder = contentHolder +
+
+  contentHolder = contentHolder + '<p><b>upcoming meetings today: </b><br>';
+// FIX: 
+  for (var j=0; j < cont.deets[i].startTimes.length; j++) {
+    contentHolder = contentHolder + cont.deets[i].startTimes[j];
+      contentHolder = contentHolder + ', ';
+}
+  contentHolder = contentHolder.substr(0, contentHolder.length - 2)
+  contentHolder = contentHolder + '</p>';
+// END FIX
+}
+  return contentHolder;
+
+}
+
+function setMarkers(map, locations) {
+  // Add markers to the map
+
+      var infowindow = new google.maps.InfoWindow({
+      maxWidth: 200
+  });
+    
+
+
+  for (var i = 0; i < locations.length; i++) {
+    var meeting = locations[i];
+    var myLatLng = new google.maps.LatLng(meeting._id.loca[0], meeting._id.loca[1]);
+    
+    var contentWindow = makeContent(meetings[i]);
+    
+    
+    var marker = new google.maps.Marker({
+        position: myLatLng,
+        map: map,
+        title: "Click for meeting info",
+        // title: meeting._id.meetingName,
+        // title: meeting._id.meetingName.substr(0, meeting._id.meetingName.indexOf("-") - 1),
+        content: contentWindow,
+    });
+  
+    google.maps.event.addListener(marker, 'click', function() {
+    infowindow.setContent(this.content);
+    infowindow.open(map, this);
+  });
+  }
+}
+
+google.maps.event.addDomListener(window, 'load', initialize);
+
+    </script>
+  </head>
+  <body>
+    <div id="map-canvas"></div>
+  </body>
+</html>

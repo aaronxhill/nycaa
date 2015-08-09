@@ -43,7 +43,15 @@ denorm(meets)
 
 var geoCodeIt = function(arr) {
     for (var i = 0; i < arr.length; i++) {
-        arr[i].addToGeoCode = arr[i].meetingAddress1.substring(0, arr[i].meetingAddress1.indexOf(',')) + ", New York, NY";
+        var substringChar = ','
+        var commaI = arr[i].meetingAddress1.indexOf(',');
+        var parenI = arr[i].meetingAddress1.indexOf('(');
+        if (parenI >= 0) {
+            if (parenI < commaI) {
+                substringChar = '('
+            }
+        }
+        arr[i].addToGeoCode = arr[i].meetingAddress1.substring(0, arr[i].meetingAddress1.indexOf(substringChar)) + ", New York, NY";
         arr[i].addToGeoCode = arr[i].addToGeoCode.split(' ').join('+');
     }
 }
@@ -57,16 +65,20 @@ var googleGeoCode = function(arr) {
     async.eachSeries(arr, function(value, callb) {
         var toLookUp = 'https://maps.googleapis.com/maps/api/geocode/json?address=' + value.addToGeoCode + '&key=' +
             'AIzaSyBrLKVurPvDQH95rCiJk4Vou56RGP1WNk0';
+            console.log(value.addToGeoCode)
         request(toLookUp, function(error, response, body) {
             if (!error && response.statusCode == 200) {
                 console.log(JSON.parse(body).status);
-                value.statuss = JSON.parse(body).status;
+                value.latLong = [];
+                value.latLong[0] = JSON.parse(body).results[0].geometry.location.lat;
+                value.latLong[1] = JSON.parse(body).results[0].geometry.location.lng;
+                // console.log(value)
             }
         })
-        setTimeout(callb, 500)
+        setTimeout(callb, 200)
     }, function(err) {
         if (err) throw err;
-        console.log(arr);
+        mongoIt(arr, 'testdb', 'draftMeetsDenorm1');
     })
 }
 
@@ -77,3 +89,29 @@ var fn = function() {
 }
 
 // setTimeout(fn, 2000)
+
+var mongoIt = function(arr, dbName, collName) {
+
+    var url = 'mongodb://' + process.env.IP + ':27017/' + dbName;
+    var MongoClient = require('mongodb').MongoClient;
+
+    MongoClient.connect(url, function(err, db) {
+        if (err) {
+            return console.dir(err);
+        }
+
+        var collection = db.collection(collName);
+
+        for (var i = 0; i < arr.length; i++) {
+            // WRITE meetingsArray[i] TO MONGO
+            collection.insert(arr[i]);
+
+        }
+
+        db.close();
+
+    }); //MongoClient.connect
+
+};
+
+// db.draftMeetsDenorm1.aggregate([{$group : { _id : "$meetingName", meetings : {$push : "$$ROOT"} }}]).pretty()

@@ -23,7 +23,7 @@ MongoClient.connect(url, function(err, db) {
     $match: {
         $and : [
         {meetingDay: "Sundays" },
-        {meetingStartTimeHour: { $gt : hourNow }}
+        {meetingStartTimeHour: { $gt : hourNow }} //replace 0 with hourNow
         ]
     }
 }, {
@@ -43,6 +43,12 @@ MongoClient.connect(url, function(err, db) {
         },
         startTimes: {
             $push: "$meetingStartTime"
+        },
+        meetingType: {
+            $push: "$meetingType"
+        },
+        specialInterest: {
+            $push: "$specialInterest"
         }
     }
 }
@@ -56,7 +62,7 @@ MongoClient.connect(url, function(err, db) {
          meetingAddress1: "$_id.meetingAddress1",
          meetingAddress2: "$_id.meetingAddress2",
          borough: "$_id.borough"}},
-    deets: {$addToSet: {days: "$days", startTimes: "$startTimes"}}
+    deets: {$addToSet: {days: "$days", startTimes: "$startTimes", meetingType: "$meetingType", specialInterest: "$specialInterest"}}
      }
      
  }   

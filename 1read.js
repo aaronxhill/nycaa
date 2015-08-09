@@ -58,10 +58,13 @@ var parseMeetings = function(x) {
         newX[i].startTime = x[i].substring(x[i].indexOf('From</b>  ') + 10, x[i].indexOf(' <b>to</b> '));
         newX[i].startTimeHour = getMeetingHourStart(newX[i].startTime)
         newX[i].endTime = x[i].substring(x[i].indexOf(' <b>to</b> ') + 11, x[i].indexOf(' <br><b>'));
-        newX[i].meetingType = x[i].substring(x[i].indexOf('Meeting Type</b> ') + 17, x[i].indexOf(' ='));
+        if (x[i].indexOf('Meeting Type</b> ') != -1) {
+        newX[i].meetingType = x[i].substring(x[i].indexOf('Meeting Type</b> ') + 17, x[i].indexOf(' ='));}
+        else {newX[i].meetingType = ""}
         if (x[i].indexOf('Special Interest</b> ') != -1) {
             newX[i].specialInterest = x[i].substring(x[i].indexOf('Special Interest</b> ') + 21);
         }
+        else {newX[i].specialInterest = ""}
     }
     return newX;
 };

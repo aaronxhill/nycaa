@@ -34,9 +34,9 @@ var handleInner = function(arr, obj) {
         newObj[newObj.length - 1].meetingStartTimeHour = arr[i].startTimeHour;
         newObj[newObj.length - 1].meetingEndTime = arr[i].endTime;
         newObj[newObj.length - 1].meetingType = arr[i].meetingType;
-        if (newObj[newObj.length - 1].specialInterest) {
+        // if (newObj[newObj.length - 1].specialInterest) {
             newObj[newObj.length - 1].specialInterest = arr[i].specialInterest;
-        }
+        // }
     }
 }
 

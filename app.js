@@ -138,13 +138,12 @@ app.get('/', function(req, res) {
             }
             else {
                 console.log(JSON.stringify(docs))
-                meetings = docs;
-                // var X = "var meetings = " + JSON.stringify(docs) + ";";
-                res.render('dataa');
-
+                var toSend = "var meetings = " + JSON.stringify(docs) + ";";
+                var meetings = docs; 
+                // res.send(toSend);
+                res.render('dataa', { dataHere : toSend });
             }
             db.close();
-            
         });
 
     }); //MongoClient.connect

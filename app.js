@@ -139,8 +139,6 @@ app.get('/', function(req, res) {
             else {
                 console.log(JSON.stringify(docs))
                 var toSend = "var meetings = " + JSON.stringify(docs) + ";";
-                var meetings = docs; 
-                // res.send(toSend);
                 res.render('dataa', { dataHere : toSend });
             }
             db.close();

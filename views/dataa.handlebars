@@ -14,13 +14,11 @@
       #firstHeading {
         font-size: 100%; 
       }
-
+      
     </style>
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true"></script>
     <script>
     
-{{{body}}}
-
 function initialize() {
   var mapOptions = {
     zoom: 15,
@@ -55,14 +53,28 @@ function makeContent (cont) {
   // contentHolder = contentHolder +
 
   contentHolder = contentHolder + '<p><b>upcoming meetings today: </b><br>';
-// FIX: 
+
   for (var j=0; j < cont.deets[i].startTimes.length; j++) {
-    contentHolder = contentHolder + cont.deets[i].startTimes[j];
-      contentHolder = contentHolder + ', ';
+      //ISSUE: ASYNC ISSUE W INNER LOOP
+      var mt, si; 
+      if (cont.deets[i].meetingType[j]=="BB") {mt = "Big Book ";}
+      else if (cont.deets[i].meetingType[j]=="B") {mt = "Beginners ";}
+      else if (cont.deets[i].meetingType[j]=="C") {mt = "Closed Discussion ";}
+      else if (cont.deets[i].meetingType[j]=="S") {mt = "Step ";}
+      else if (cont.deets[i].meetingType[j]=="T") {mt = "Tradition ";}
+      else if (cont.deets[i].meetingType[j]=="O") {mt = "Open Meeting";}
+      else if (cont.deets[i].meetingType[j]=="OD") {mt = "Open Discussion ";}
+      else {mt = "";}
+      
+      if (cont.deets[i].specialInterest[j] != '') {si = cont.deets[i].specialInterest[j]}
+      else {si =''}
+    contentHolder = contentHolder + cont.deets[i].startTimes[j] + ' ' + mt + si + '<br>';
+    //   contentHolder = contentHolder + ', ';
 }
-  contentHolder = contentHolder.substr(0, contentHolder.length - 2)
+//   contentHolder = contentHolder.substr(0, contentHolder.length - 2)
   contentHolder = contentHolder + '</p>';
-// END FIX
+
+
 }
   return contentHolder;
 

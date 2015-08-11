@@ -20,28 +20,42 @@ app.get('/', function(req, res) {
     process.env.TZ = 'America/New_York';
     var hourNow = new Date().getHours() - 2;
     var dayNow = new Date().getDay();
-    var dayQuery;
+    var dayQuery, dayTomorrow, sortDayQuery;
 
     if (dayNow === 0) {
-        dayQuery = "Sundays"
+        dayQuery = "Sundays";
+        dayTomorrow = "Mondays";
+        sortDayQuery = -1; 
     }
     else if (dayNow === 1) {
-        dayQuery = "Mondays"
+        dayQuery = "Mondays";
+        dayTomorrow = "Tuesdays";
+        sortDayQuery = 1; 
     }
     else if (dayNow === 2) {
-        dayQuery = "Tuesdays"
+        dayQuery = "Tuesdays";
+        dayTomorrow = "Wednesdays";
+        sortDayQuery = 1; 
     }
     else if (dayNow === 3) {
-        dayQuery = "Wednesdays"
+        dayQuery = "Wednesdays";
+        dayTomorrow = "Thursdays";
+        sortDayQuery = -1; 
     }
     else if (dayNow === 4) {
-        dayQuery = "Thursdays"
+        dayQuery = "Thursdays";
+        dayTomorrow = "Fridays";
+        sortDayQuery = -1; 
     }
     else if (dayNow === 5) {
-        dayQuery = "Fridays"
+        dayQuery = "Fridays";
+        dayTomorrow = "Saturdays";
+        sortDayQuery = 1; 
     }
     else if (dayNow === 6) {
-        dayQuery = "Saturdays"
+        dayQuery = "Saturdays";
+        dayTomorrow = "Sundays";
+        sortDayQuery = 1; 
     }
 
     // Connection URL
@@ -59,18 +73,32 @@ app.get('/', function(req, res) {
 
         collection.aggregate(
 
-            // [{$match: { meetingDay : "Sundays"}}, {$group : { _id : {meetingName : "$meetingName", meetingHouse: "$meetingHouse", latLong : "$latLong"}, days : {$push : "$meetingDay"}, startTimes : {$push : "$meetingStartTime"} }}]
-
             [{
                     $match: {
-                        $and: [{
+
+                        $or: [{
+
+                            $and: [{
                                 meetingDay: dayQuery
                             }, {
                                 meetingStartTimeHour: {
                                     $gt: hourNow
                                 }
-                            } //replace 0 with hourNow
-                        ]
+                            }]
+                        }, {
+                            $and: [{
+                                meetingDay: dayTomorrow
+                            }, {
+                                meetingStartTimeHour: {
+                                    $lt: 4
+                                }
+                            }]
+                        }]
+                    }
+                }, {
+                    $sort: {
+                        meetingDay: sortDayQuery,
+                        meetingStartTimeHour: 1
                     }
                 }, {
                     $group: {
@@ -130,7 +158,7 @@ app.get('/', function(req, res) {
 
 
             ]
-
+            
         ).toArray(function(err, docs) {
             if (err) {
                 console.log(err)

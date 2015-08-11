@@ -45,7 +45,7 @@ function makeContent (cont) {
   contentHolder = contentHolder + cont.meets[i].meetingAddress2 + '</p>';
   // contentHolder = contentHolder +
   // contentHolder = contentHolder +
-  contentHolder = contentHolder + '<p><b>upcoming meetings today: </b><br>';
+  contentHolder = contentHolder + '<p><b>upcoming meetings: </b><br>';
   for (var j=0; j < cont.deets[i].startTimes.length; j++) {
       //ISSUE: ASYNC ISSUE W INNER LOOP
       var mt, si; 
@@ -68,6 +68,7 @@ function makeContent (cont) {
 }
   return contentHolder;
 }
+
 function setMarkers(map, locations) {
   // Add markers to the map
       var infowindow = new google.maps.InfoWindow({

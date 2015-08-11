@@ -106,7 +106,7 @@ app.get('/', function(req, res) {
                             loca: "$_id.latLong"
                         },
                         meets: {
-                            $addToSet: {
+                            $push: {
                                 meetingName: "$_id.meetingName",
                                 meetingHouse: "$_id.meetingHouse",
                                 meetingAddress1: "$_id.meetingAddress1",
@@ -117,7 +117,7 @@ app.get('/', function(req, res) {
                             }
                         },
                         deets: {
-                            $addToSet: {
+                            $push: {
                                 days: "$days",
                                 startTimes: "$startTimes",
                                 meetingType: "$meetingType",

@@ -5,7 +5,7 @@ var cheerio = require('cheerio');
 
 function getMeetingHourStart (meetTime) {
     var theHour; 
-    if (meetTime.substr(-2) == "PM") {
+    if (meetTime.substr(-2) == "PM" && meetTime.substr(0, meetTime.indexOf(':')) * 1 != 12) {
       theHour = meetTime.substr(0, meetTime.indexOf(':')) * 1 + 12;
     }
     else if (meetTime.substr(-2) == "AM" && meetTime.substr(0, meetTime.indexOf(':')) * 1 === 12) {theHour = 0}

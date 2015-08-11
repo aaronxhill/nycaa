@@ -10,7 +10,6 @@
         margin: 0;
         padding: 0;
       }
-
       #firstHeading {
         font-size: 100%; 
       }
@@ -29,21 +28,16 @@ function initialize() {
                                 
   setMarkers(map, meetings);
 }
-
 // var meetings  ;
 {{{dataHere}}}
-
 function makeContent (cont) {
-
   // var m = cont;
   var contentHolder = '<div id="content">'+
       '<div id="siteNotice">'+
       '</div>';
-
   for (var i=0; i < cont.meets.length; i++) {
      contentHolder = contentHolder + '<h1 id="firstHeading" class="firstHeading">';
   var mName = cont.meets[i].meetingName.substr(0, cont.meets[i].meetingName.indexOf("-") - 1); 
-
   contentHolder = contentHolder + mName + '</h1>';
   if (cont.meets[i].meetingHouse.length > 0) {
   contentHolder = contentHolder + '<p>' + cont.meets[i].meetingHouse + '<br>';}
@@ -51,9 +45,7 @@ function makeContent (cont) {
   contentHolder = contentHolder + cont.meets[i].meetingAddress2 + '</p>';
   // contentHolder = contentHolder +
   // contentHolder = contentHolder +
-
   contentHolder = contentHolder + '<p><b>upcoming meetings today: </b><br>';
-
   for (var j=0; j < cont.deets[i].startTimes.length; j++) {
       //ISSUE: ASYNC ISSUE W INNER LOOP
       var mt, si; 
@@ -73,22 +65,15 @@ function makeContent (cont) {
 }
 //   contentHolder = contentHolder.substr(0, contentHolder.length - 2)
   contentHolder = contentHolder + '</p>';
-
-
 }
   return contentHolder;
-
 }
-
 function setMarkers(map, locations) {
   // Add markers to the map
-
       var infowindow = new google.maps.InfoWindow({
       maxWidth: 200
   });
     
-
-
   for (var i = 0; i < locations.length; i++) {
     var meeting = locations[i];
     var myLatLng = new google.maps.LatLng(meeting._id.loca[0], meeting._id.loca[1]);
@@ -111,9 +96,7 @@ function setMarkers(map, locations) {
   });
   }
 }
-
 google.maps.event.addDomListener(window, 'load', initialize);
-
     </script>
   </head>
   <body>

@@ -28,7 +28,7 @@ $('table').attr('cellpadding', '5').find('tbody').find('tr').each(function(i, el
     meetingsArray[i] = new Object;
     meetingsArray[i].indx = i;
     meetingsArray[i].borough = "Manhattan";
-    meetingsArray[i].zone = 2;
+    meetingsArray[i].zone = zone * 1;
     meetingsArray[i].meetingName = $(this).find('td').eq(0).find('b').text();
     meetingsArray[i].meetingHouse = $(this).find('td').eq(0).find('h4').text();
     meetingsArray[i].meetingAddress1 = $(this).find('td').eq(0).html().split('<br>')[2].trim();
@@ -86,6 +86,12 @@ var saveIt = function () {
 setTimeout(saveIt, 1000);
 
 }
+
+// var z = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10']
+
+// for (var i=0; i < z.length; i++) {
+//     setTimeout(parseIt(z[i]), 120000 * (z[i] * 1))
+// }
 
 parseIt('01')
 parseIt('02')

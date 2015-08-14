@@ -165,7 +165,7 @@ app.get('/', function(req, res) {
 
             }
             else {
-                console.log(JSON.stringify(docs))
+                // console.log(JSON.stringify(docs))
                 var toSend = "var meetings = " + JSON.stringify(docs) + ";";
                 res.render('dataa', { dataHere : toSend });
             }

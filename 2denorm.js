@@ -39,9 +39,7 @@ var handleInner = function(arr, obj) {
         newObj[newObj.length - 1].meetingStartTimeHour = arr[i].startTimeHour;
         newObj[newObj.length - 1].meetingEndTime = arr[i].endTime;
         newObj[newObj.length - 1].meetingType = arr[i].meetingType;
-        // if (newObj[newObj.length - 1].specialInterest) {
-            newObj[newObj.length - 1].specialInterest = arr[i].specialInterest;
-        // }
+        newObj[newObj.length - 1].specialInterest = arr[i].specialInterest;
     }
 }
 
@@ -64,24 +62,23 @@ var geoCodeIt = function(arr) {
 
 setTimeout(geoCodeIt(newObj), 500)
 
-var googleGeoCodeI = 0;
-
 var googleGeoCode = function(arr) {
 
     async.eachSeries(arr, function(value, callb) {
         var toLookUp = 'https://maps.googleapis.com/maps/api/geocode/json?address=' + value.addToGeoCode + '&key=' +
             'AIzaSyBrLKVurPvDQH95rCiJk4Vou56RGP1WNk0';
-            console.log(value.addToGeoCode)
+            // console.log(value.addToGeoCode)
         request(toLookUp, function(error, response, body) {
             if (!error && response.statusCode == 200) {
-                console.log(JSON.parse(body).status);
+                if (JSON.parse(body).status === 'OVER_QUERY_LIMIT') {throw new Error("OVER_QUERY_LIMIT")};
                 value.latLong = [];
                 value.latLong[0] = JSON.parse(body).results[0].geometry.location.lat;
                 value.latLong[1] = JSON.parse(body).results[0].geometry.location.lng;
-                // console.log(value)
             }
+            else if (error) {console.log(error)} //NEWNEWNEW
+            else {console.log("something else went wrong")}
         })
-        setTimeout(callb, 200)
+        setTimeout(callb, 500)
     }, function(err) {
         if (err) throw err;
         mongoIt(arr, 'testdb', 'meetsFinal');
@@ -118,18 +115,17 @@ var mongoIt = function(arr, dbName, collName) {
 
     }); //MongoClient.connect
 
-};
+    console.log("done with zone " + z[iterator])
+    if (iterator < z.length - 1) {
+        iterator = iterator + 1;
+        denormAndInsert(z[iterator])
+    }
 
+};
 } //function denormAndInsert
 
-// NOTE: NEED TO USE RECURSION TO CALL THESE SEQUENTIALLY
-// denormAndInsert('01')
-// denormAndInsert('02')
-// denormAndInsert('03')
-// denormAndInsert('04')
-// denormAndInsert('05')
-// denormAndInsert('06')
-// denormAndInsert('07')
-// denormAndInsert('08')
-// denormAndInsert('09')
-// denormAndInsert('10')
+
+var z = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10']
+var iterator = 0; 
+denormAndInsert('01')
+

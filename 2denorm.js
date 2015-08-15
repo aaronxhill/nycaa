@@ -4,6 +4,69 @@ var fs = require("fs");
 var request = require("request");
 var async = require("async");
 
+function fixName (name) {
+    var nameeC = name.toUpperCase();
+    var namee = name; 
+
+    if (nameeC.lastIndexOf(namee.substr(0, 5)) > 0) {
+        namee = namee.substr(0, nameeC.lastIndexOf(nameeC.substr(0, 5)))
+    }
+    
+    //get rid of unnecessary hyphens
+    if (namee.substr(-3) === ' - ') {
+        namee = namee.substr(0, namee.length-3);
+    }
+    
+    //get rid of (:I%)
+    if (namee.indexOf('(:I') != -1) {
+        namee = namee.substr(0, namee.indexOf('(:I'));
+    }
+
+    //get rid of (I)
+    if (namee.indexOf('(I)') != -1) {
+        namee = namee.substr(0, namee.indexOf('(I)'));
+    }
+
+    //get rid of (II)
+    if (namee.indexOf('(II)') != -1) {
+        namee = namee.substr(0, namee.indexOf('(II)'));
+    }
+    
+    //get rid of ( :II)
+    if (namee.indexOf('( :II)') != -1) {
+        namee = namee.substr(0, namee.indexOf('( :II)'));
+    }
+
+    //get rid of ( :1)
+    if (namee.indexOf('( :1)') != -1) {
+        namee = namee.substr(0, namee.indexOf('( :1)'));
+    }
+    
+    return namee.trim(); 
+}
+
+function fixAddress (addy) {
+        var geoAddy; 
+        var substringChar = ','
+        var commaI = addy.indexOf(',');
+        var parenI = addy.indexOf('(');
+        var hyphnI = addy.indexOf('-');
+        if (parenI >= 0) {
+            if (parenI < commaI) {
+                substringChar = '('
+            }
+        }
+        if (hyphnI >=0) {
+            if (addy.indexOf('Street') < addy.indexOf('-'))
+            substringChar = '-'
+        }
+        geoAddy = addy.substring(0, addy.indexOf(substringChar)) + ", New York, NY";
+        geoAddy = geoAddy.split(' ').join('+');
+        geoAddy = geoAddy.replace("&apos;", "");
+        geoAddy = geoAddy.replace("Strert", "Street");
+        return geoAddy;
+}
+
 function denormAndInsert (zone) {
     var fileToParse = '/home/ubuntu/workspace/data/normalized' + zone + '.txt';
 
@@ -26,7 +89,7 @@ var handleInner = function(arr, obj) {
         newObj.push(new Object);
         newObj[newObj.length - 1].borough = obj.borough;
         newObj[newObj.length - 1].zone = obj.zone;
-        newObj[newObj.length - 1].meetingName = obj.meetingName;
+        newObj[newObj.length - 1].meetingName = fixName(obj.meetingName);
         newObj[newObj.length - 1].meetingHouse = obj.meetingHouse;
         newObj[newObj.length - 1].meetingAddress1 = obj.meetingAddress1;
         newObj[newObj.length - 1].meetingAddress2 = obj.meetingAddress2;
@@ -47,16 +110,7 @@ denorm(meets)
 
 var geoCodeIt = function(arr) {
     for (var i = 0; i < arr.length; i++) {
-        var substringChar = ','
-        var commaI = arr[i].meetingAddress1.indexOf(',');
-        var parenI = arr[i].meetingAddress1.indexOf('(');
-        if (parenI >= 0) {
-            if (parenI < commaI) {
-                substringChar = '('
-            }
-        }
-        arr[i].addToGeoCode = arr[i].meetingAddress1.substring(0, arr[i].meetingAddress1.indexOf(substringChar)) + ", New York, NY";
-        arr[i].addToGeoCode = arr[i].addToGeoCode.split(' ').join('+');
+        arr[i].addToGeoCode = fixAddress(arr[i].meetingAddress1);
     }
 }
 
@@ -75,7 +129,7 @@ var googleGeoCode = function(arr) {
                 value.latLong[0] = JSON.parse(body).results[0].geometry.location.lat;
                 value.latLong[1] = JSON.parse(body).results[0].geometry.location.lng;
             }
-            else if (error) {console.log(error)} //NEWNEWNEW
+            // else if (error) {console.log(error)}
             else {console.log("something else went wrong")}
         })
         setTimeout(callb, 500)
@@ -124,8 +178,8 @@ var mongoIt = function(arr, dbName, collName) {
 };
 } //function denormAndInsert
 
-
-var z = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10']
+var z = ['10']
+// var z = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10']
 var iterator = 0; 
-denormAndInsert('01')
+denormAndInsert('10')
 

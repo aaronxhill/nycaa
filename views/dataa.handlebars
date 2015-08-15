@@ -13,21 +13,59 @@
       #firstHeading {
         font-size: 100%; 
       }
-      
+
+.gm-style .gm-style-iw, .gm-style .gm-style-iw a, .gm-style .gm-style-iw span, .gm-style .gm-style-iw label, .gm-style .gm-style-iw div {
+  max-height: 300px;
+  padding: 0px 10px 5px 5px;
+  overflow-y: scroll;
+  overflow-x: visible;
+}      
+
+   .iw-bottom-gradient {
+      position: absolute;
+      width: 326px;
+      height: 25px;
+      bottom: 0px;
+      right: 16px;
+      background: linear-gradient(to bottom, rgba(255,255,255,0) 0%,rgba(255,255,255,1) 100%);
+      background: -webkit-linear-gradient(top, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 100%);
+      background: -moz-linear-gradient(top, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 100%);
+      background: -ms-linear-gradient(top, rgba(255,255,255,0) 0%,rgba(255,255,255,1) 100%);
+   }
     </style>
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true"></script>
     <script>
-    
+
+var latNow = 40.735688;
+var longNow = -73.990399; 
+
+if ("geolocation" in navigator) {
+  navigator.geolocation.getCurrentPosition(function(position) {
+  latNow = position.coords.latitude;
+  longNow = position.coords.longitude;
+  if (latNow < 40.758375 || latNow > 40.795813 || longNow < -74.002876 || longNow > -73.934898) {
+  latNow = 40.735688;
+  longNow = -73.990399;
+  if (latNow != 40.735688) {
+  initialize();}
+}
+});
+} else {
+  latNow = 40.735688;
+  longNow = -73.990399;
+}
+
 function initialize() {
   var mapOptions = {
     zoom: 15,
-    center: new google.maps.LatLng(40.735688, -73.990399)
+    center: new google.maps.LatLng(latNow, longNow)
   }
   var map = new google.maps.Map(document.getElementById('map-canvas'),
                                 mapOptions);
                                 
   setMarkers(map, meetings);
 }
+
 // var meetings  ;
 {{{dataHere}}}
 function makeContent (cont) {
@@ -37,8 +75,8 @@ function makeContent (cont) {
       '</div>';
   for (var i=0; i < cont.meets.length; i++) {
      contentHolder = contentHolder + '<h1 id="firstHeading" class="firstHeading">';
-  var mName = cont.meets[i].meetingName.substr(0, cont.meets[i].meetingName.indexOf("-") - 1); 
-  contentHolder = contentHolder + mName + '</h1>';
+//   var mName = cont.meets[i].meetingName.substr(0, cont.meets[i].meetingName.indexOf("-") - 1); 
+  contentHolder = contentHolder + cont.meets[i].meetingName + '</h1>';
   if (cont.meets[i].meetingHouse.length > 0) {
   contentHolder = contentHolder + '<p>' + cont.meets[i].meetingHouse + '<br>';}
   contentHolder = contentHolder + cont.meets[i].meetingAddress1.substr(0, cont.meets[i].meetingAddress1.indexOf(',')) + '<br>';
@@ -65,6 +103,7 @@ function makeContent (cont) {
 }
 //   contentHolder = contentHolder.substr(0, contentHolder.length - 2)
   contentHolder = contentHolder + '</p>';
+  contentHolder = contentHolder + '<div class="iw-bottom-gradient"></div>';
 }
   return contentHolder;
 }
